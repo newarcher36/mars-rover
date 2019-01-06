@@ -24,11 +24,19 @@ public class Rover {
 			
 			switch(command) {
 				case Commands.FORWARD:
-					this.currentPosition.setRover(null);
-					setPosition(currentPosition.getNextPosition(direction));
-					this.currentPosition.setRover(this);
+					moveRover();
 					break;
 				case Commands.BACKWARD:
+					if (direction.equals(Direction.NORTH)) {
+						setDirection(Direction.SOUTH);
+					} else if (direction.equals(Direction.EAST)) {
+						setDirection(Direction.WEST);
+					} else if (direction.equals(Direction.WEST)) {
+						setDirection(Direction.EAST);
+					} else {
+						setDirection(Direction.NORTH);
+					}
+					moveRover();
 					break;
 				case Commands.RIGHT:
 					break;
@@ -49,5 +57,11 @@ public class Rover {
 	@Override
     public String toString() {
 		return "#";
+	}
+	
+	public void moveRover() {
+		this.currentPosition.setRover(null);
+		setPosition(currentPosition.getNextPosition(direction));
+		this.currentPosition.setRover(this);
 	}
 }

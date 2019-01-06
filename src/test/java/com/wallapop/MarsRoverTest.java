@@ -10,7 +10,7 @@ import org.junit.Test;
 public class MarsRoverTest {
 
 	@Test
-	public void move_rover_forward() throws InvalidCommandException {
+	public void move_rover_forward() throws Exception {
 
 		Planet marsMap = new Planet(6, 8);
 
@@ -30,8 +30,22 @@ public class MarsRoverTest {
 	}
 
 	@Test
-	public void move_rover_backward() {
+	public void move_rover_backward() throws Exception {
+		Planet marsMap = new Planet(6, 8);
 
+		Rover rover = new Rover();
+		rover.setDirection(Direction.WEST);
+
+		Position roverPosition = marsMap.getPosition(4, 2);
+		roverPosition.setRover(rover);
+		rover.setPosition(roverPosition);
+
+		List<String> commands = Arrays.asList("b");
+
+		rover.getNavigationConsole().setCommands(commands);
+		rover.go();
+
+		assertEquals(rover.getCurrentPosition(), marsMap.getPosition(4, 3));
 	}
 
 	@Test
