@@ -51,17 +51,15 @@ public class Planet {
 		
 		int destintyRow = 0;
 		int destinyCol = 0;
-		Direction direction;
 		Position position;
 		
 		for (int row = 0; row < sizeX; row++) {
 			for (int col = 0; col < sizeY; col ++) {
 				position = getPosition(row,col);				
-				for (Orientation orientation : Orientation.values()) {
-					destintyRow = row + moves[orientation.getValue()][0];
-					destinyCol = col + moves[orientation.getValue()][1];					
-					direction = new Direction(getPosition(destintyRow,destinyCol));
-					position.setDirection(direction,orientation.getValue());					
+				for (Direction direction : Direction.values()) {
+					destintyRow = row + moves[direction.getValue()][0];
+					destinyCol = col + moves[direction.getValue()][1];
+					position.setPositionAround(getPosition(destintyRow,destinyCol), direction.getValue());			
 				}
 			}
 		}
@@ -88,6 +86,5 @@ public class Planet {
 		}
 		
 		return map;
-		
 	}
 }

@@ -4,12 +4,12 @@ import java.util.List;
 
 public class Rover {
 
-	private Orientation orientation;
+	private Direction direction;
 	private Position currentPosition;
 	private NavigationConsole navigationConsole = new NavigationConsole();
 
-	public void setOrientation(Orientation north) {
-		this.orientation = north;
+	public void setDirection(Direction direction) {
+		this.direction = direction;
 	}
 
 	public NavigationConsole getNavigationConsole() {
@@ -25,7 +25,7 @@ public class Rover {
 			switch(command) {
 				case Commands.FORWARD:
 					this.currentPosition.setRover(null);
-					setPosition(currentPosition.getDirection(orientation).getNextPosition());
+					setPosition(currentPosition.getNextPosition(direction));
 					this.currentPosition.setRover(this);
 					break;
 				case Commands.BACKWARD:

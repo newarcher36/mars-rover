@@ -1,14 +1,19 @@
 package com.wallapop;
 
-public class Direction {
+public enum Direction {
 	
-	private Position nextPosition; 	
+	NORTH(0),
+	EAST(1),
+	SOUTH(2),
+	WEST(3);
+	
+	private final int directionCode;
 
-	public Direction(Position position) {
-		this.nextPosition = position;
+	private Direction(int directionCode) {
+		this.directionCode = directionCode;
 	}
-
-	public Position getNextPosition() {
-		return nextPosition;
+	
+	public int getValue() {
+		return this.directionCode;
 	}
 }

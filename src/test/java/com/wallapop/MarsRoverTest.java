@@ -15,7 +15,7 @@ public class MarsRoverTest {
 		Planet marsMap = new Planet(6, 8);
 
 		Rover rover = new Rover();
-		rover.setOrientation(Orientation.SOUTH);
+		rover.setDirection(Direction.SOUTH);
 
 		Position roverPosition = marsMap.getPosition(2, 1);
 		roverPosition.setRover(rover);
