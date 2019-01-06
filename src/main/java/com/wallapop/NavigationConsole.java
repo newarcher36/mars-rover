@@ -14,4 +14,8 @@ public class NavigationConsole {
 	private void computeCommands() throws InvalidCommandException {
 		
 	}
+
+	public List<String> getCommands() {
+		return this.commands;
+	}
 }
