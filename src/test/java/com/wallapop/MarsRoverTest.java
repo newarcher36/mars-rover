@@ -46,7 +46,7 @@ public class MarsRoverTest {
 	}
 
 	@Test
-	public void turn_rover_right() throws InvalidCommandException {
+	public void turn_rover_right() throws Exception {
 		
 		Planet marsMap = new Planet(10, 7);
 		Position roverPosition = marsMap.getPosition(3, 7);
@@ -105,4 +105,54 @@ public class MarsRoverTest {
 		
 		assertEquals(marsMap.getPosition(3, 7),rover.getPosition());
 	}
+	
+	@Test
+	public void test_wrapped_edges_north_and_south() throws Exception {
+		
+		Planet marsMap = new Planet(12, 14);
+		Position roverPosition = marsMap.getPosition(1, 8);
+
+		Rover rover = new Rover();
+		rover.getNavigationConsole().setDirection(Direction.NORTH);
+		rover.getNavigationConsole().setCommands(Arrays.asList('f','f','f','f'));
+		rover.setPosition(roverPosition);
+		
+		roverPosition.setRover(rover);		
+		rover.go();		
+		
+		assertEquals(Direction.NORTH, rover.getNavigationConsole().getDirection());
+		assertEquals(marsMap.getPosition(9, 8), rover.getPosition());
+		
+		rover.getNavigationConsole().setCommands(Arrays.asList('b','b','b','b'));
+		rover.go();
+		
+		assertEquals(Direction.NORTH, rover.getNavigationConsole().getDirection());
+		assertEquals(marsMap.getPosition(1, 8), rover.getPosition());
+		
+	}
+	
+	@Test
+	public void test_wrapped_edges_east_and_west() throws Exception {
+		
+		Planet marsMap = new Planet(12, 14);
+		Position roverPosition = marsMap.getPosition(6, 12);
+
+		Rover rover = new Rover();
+		rover.getNavigationConsole().setDirection(Direction.EAST);
+		rover.getNavigationConsole().setCommands(Arrays.asList('f','f','f','f'));
+		rover.setPosition(roverPosition);
+		
+		roverPosition.setRover(rover);
+		rover.go();		
+		
+		assertEquals(Direction.EAST, rover.getNavigationConsole().getDirection());
+		assertEquals(marsMap.getPosition(6, 2), rover.getPosition());
+		
+		
+		rover.getNavigationConsole().setCommands(Arrays.asList('b','b','b','b'));
+		rover.go();
+		
+		assertEquals(Direction.EAST, rover.getNavigationConsole().getDirection());
+		assertEquals(marsMap.getPosition(6, 12), rover.getPosition());
+	} 
 }
