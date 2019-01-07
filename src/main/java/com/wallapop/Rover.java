@@ -1,16 +1,9 @@
 package com.wallapop;
 
-import java.util.List;
-
 public class Rover {
 
-	private Direction direction;
 	private Position currentPosition;
 	private NavigationConsole navigationConsole = new NavigationConsole();
-
-	public void setDirection(Direction direction) {
-		this.direction = direction;
-	}
 
 	public NavigationConsole getNavigationConsole() {
 		return this.navigationConsole;
@@ -18,35 +11,30 @@ public class Rover {
 
 	public void go() {
 		
-		List<String> commands = navigationConsole.getCommands();
-		
-		commands.forEach( command -> {
+		navigationConsole.getCommands().forEach( command -> {
+			
+			int currentDirectionValue;
 			
 			switch(command) {
-				case Commands.FORWARD:
-					moveRover();
+				case FOREWARD:
+					moveRover(navigationConsole.getDirection());
 					break;
-				case Commands.BACKWARD:
-					if (direction.equals(Direction.NORTH)) {
-						setDirection(Direction.SOUTH);
-					} else if (direction.equals(Direction.EAST)) {
-						setDirection(Direction.WEST);
-					} else if (direction.equals(Direction.WEST)) {
-						setDirection(Direction.EAST);
-					} else {
-						setDirection(Direction.NORTH);
-					}
-					moveRover();
+				case BACKWARD:
+					moveRover(navigationConsole.getOppositeDirection());
 					break;
-				case Commands.RIGHT:
+				case RIGHT:
+					currentDirectionValue = navigationConsole.getDirection().getValue();
+					turnRover(++currentDirectionValue);
 					break;
-				case Commands.LEFT:
+				case LEFT:
+					currentDirectionValue = navigationConsole.getDirection().getValue();
+					turnRover(--currentDirectionValue);
 					default:
 			}			
 			});
 	}
 
-	public Position getCurrentPosition() {
+	public Position getPosition() {
 		return this.currentPosition;
 	}
 
@@ -54,14 +42,23 @@ public class Rover {
 		this.currentPosition = position;
 	}
 	
-	@Override
-    public String toString() {
-		return "#";
-	}
-	
-	public void moveRover() {
+	public void moveRover(Direction direction) {
 		this.currentPosition.setRover(null);
 		setPosition(currentPosition.getNextPosition(direction));
 		this.currentPosition.setRover(this);
+	}
+	
+	public void turnRover(int directionValue) {
+		if (directionValue < 0) {
+			directionValue = Direction.WEST.getValue();
+		} else if (directionValue == Direction.values().length) {
+			directionValue = Direction.NORTH.getValue();
+		}
+		navigationConsole.setDirection(Direction.getDirectionByValue(directionValue));		
+	}
+	
+	@Override
+    public String toString() {
+		return "#";
 	}
 }

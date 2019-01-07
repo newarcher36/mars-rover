@@ -1,11 +1,29 @@
 package com.wallapop;
 
-public final class Commands {
+import java.util.HashMap;
+import java.util.Map;
+
+public enum Command {
 	
-	private Commands() {}
+	FOREWARD('f'),
+	BACKWARD('b'),
+	RIGHT('r'),
+	LEFT('l');
 	
-	public static final String FORWARD = "f";
-	public static final String BACKWARD = "b";
-	public static final String RIGHT = "r";
-	public static final String LEFT = "l";
+	private char name;
+	private static Map<Character,Command> mapCommands = new HashMap<>();
+	
+	static {
+		for (Command command : Command.values()) {
+			mapCommands.put(command.name, command);
+		}
+	}
+	
+	private Command(char commandChar) {
+		this.name = commandChar;
+	}
+	
+	public static Command getCommandByChar(char commandName) {
+		return mapCommands.get(commandName);
+	}
 }

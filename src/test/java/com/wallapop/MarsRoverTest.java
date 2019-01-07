@@ -3,7 +3,6 @@ package com.wallapop;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
-import java.util.List;
 
 import org.junit.Test;
 
@@ -12,49 +11,98 @@ public class MarsRoverTest {
 	@Test
 	public void move_rover_forward() throws Exception {
 
-		Planet marsMap = new Planet(6, 8);
+		Planet marsMap = new Planet(16, 18);
+		Position roverPosition = marsMap.getPosition(2, 1);
 
 		Rover rover = new Rover();
-		rover.setDirection(Direction.SOUTH);
-
-		Position roverPosition = marsMap.getPosition(2, 1);
-		roverPosition.setRover(rover);
+		rover.getNavigationConsole().setDirection(Direction.SOUTH);
+		rover.getNavigationConsole().setCommands(Arrays.asList('f','f','f'));
 		rover.setPosition(roverPosition);
-
-		List<String> commands = Arrays.asList("f");
-
-		rover.getNavigationConsole().setCommands(commands);
+		
+		roverPosition.setRover(rover);
+				
 		rover.go();
-
-		assertEquals(rover.getCurrentPosition(), marsMap.getPosition(3, 1));
+		
+		assertEquals(Direction.SOUTH, rover.getNavigationConsole().getDirection());
+		assertEquals(marsMap.getPosition(5, 1),rover.getPosition());
 	}
 
 	@Test
 	public void move_rover_backward() throws Exception {
-		Planet marsMap = new Planet(6, 8);
+		Planet marsMap = new Planet(16, 18);
+		Position roverPosition = marsMap.getPosition(4, 2);
 
 		Rover rover = new Rover();
-		rover.setDirection(Direction.WEST);
-
-		Position roverPosition = marsMap.getPosition(4, 2);
-		roverPosition.setRover(rover);
+		rover.getNavigationConsole().setDirection(Direction.WEST);
+		rover.getNavigationConsole().setCommands(Arrays.asList('b','b','b'));
 		rover.setPosition(roverPosition);
-
-		List<String> commands = Arrays.asList("b");
-
-		rover.getNavigationConsole().setCommands(commands);
+		
+		roverPosition.setRover(rover);
+		
 		rover.go();
 
-		assertEquals(rover.getCurrentPosition(), marsMap.getPosition(4, 3));
+		assertEquals(Direction.WEST, rover.getNavigationConsole().getDirection());
+		assertEquals(marsMap.getPosition(4, 5),rover.getPosition());
 	}
 
 	@Test
-	public void turn_rover_right() {
+	public void turn_rover_right() throws InvalidCommandException {
+		
+		Planet marsMap = new Planet(10, 7);
+		Position roverPosition = marsMap.getPosition(3, 7);
 
+		Rover rover = new Rover();
+		rover.getNavigationConsole().setDirection(Direction.WEST);
+		rover.getNavigationConsole().setCommands(Arrays.asList('r'));
+		rover.setPosition(roverPosition);
+		
+		roverPosition.setRover(rover);
+		
+		rover.go();
+		assertEquals(Direction.NORTH, rover.getNavigationConsole().getDirection());
+		
+		rover.getNavigationConsole().setCommands(Arrays.asList('r'));
+		rover.go();
+		assertEquals(Direction.EAST, rover.getNavigationConsole().getDirection());
+		
+		rover.getNavigationConsole().setCommands(Arrays.asList('r'));
+		rover.go();
+		assertEquals(Direction.SOUTH, rover.getNavigationConsole().getDirection());
+		
+		rover.getNavigationConsole().setCommands(Arrays.asList('r'));
+		rover.go();
+		assertEquals(Direction.WEST, rover.getNavigationConsole().getDirection());		
+		
+		assertEquals(marsMap.getPosition(3, 7),rover.getPosition());
 	}
 
 	@Test
-	public void turn_rover_left() {
+	public void turn_rover_left() throws InvalidCommandException {
+		Planet marsMap = new Planet(10, 7);
+		Position roverPosition = marsMap.getPosition(3, 7);
 
+		Rover rover = new Rover();
+		rover.getNavigationConsole().setDirection(Direction.NORTH);
+		rover.getNavigationConsole().setCommands(Arrays.asList('l'));
+		rover.setPosition(roverPosition);
+		
+		roverPosition.setRover(rover);
+		
+		rover.go();
+		assertEquals(Direction.WEST, rover.getNavigationConsole().getDirection());
+		
+		rover.getNavigationConsole().setCommands(Arrays.asList('l'));
+		rover.go();
+		assertEquals(Direction.SOUTH, rover.getNavigationConsole().getDirection());
+		
+		rover.getNavigationConsole().setCommands(Arrays.asList('l'));
+		rover.go();
+		assertEquals(Direction.EAST, rover.getNavigationConsole().getDirection());
+		
+		rover.getNavigationConsole().setCommands(Arrays.asList('l'));
+		rover.go();
+		assertEquals(Direction.NORTH, rover.getNavigationConsole().getDirection());
+		
+		assertEquals(marsMap.getPosition(3, 7),rover.getPosition());
 	}
 }
