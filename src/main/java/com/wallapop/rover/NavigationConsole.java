@@ -1,39 +1,52 @@
-package com.wallapop;
+package com.wallapop.rover;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-public class NavigationConsole {
+import com.wallapop.exception.InvalidCommandException;
+import com.wallapop.values.Command;
+import com.wallapop.values.Direction;
+
+public class NavigationConsole implements Console {
 	
 	private Direction direction;
 	private List<Command> commands;
-
+	
+	public List<Command> getCommands() {
+		return this.commands;
+	}
+	
+	@Override
 	public void setCommands(List<Character> commandCharacters) throws InvalidCommandException {
-		this.commands = computeCommands(commandCharacters);
+		this.commands = parseCommands(commandCharacters);
 	}
 
-	private List<Command> computeCommands(List<Character> commandCharacters) throws InvalidCommandException {
+	@Override
+	public List<Command> parseCommands(List<Character> commandCharacters) throws InvalidCommandException {
 		
 		List<Command> commands = new ArrayList<>();
 		
 		for (char commandChar : commandCharacters) {
 			Command command = Command.getCommandByChar(commandChar);
-			Optional<Command> optional = Optional.of(command);
-			commands.add(optional.orElseThrow(() -> new InvalidCommandException("Invalid command " + commandChar)));
+			Optional<Command> optional = Optional.ofNullable(command);
+			commands.add(optional.orElseThrow(() -> new InvalidCommandException("Invalid command: " + commandChar)));
 		}
 		
 		return commands;
 	}
-
-	public List<Command> getCommands() {
-		return this.commands;
-	}
 	
+	@Override
 	public Direction getDirection() {
 		return this.direction;
 	}
 	
+	@Override
+	public void setDirection(Direction newDirection) {
+		this.direction = newDirection;
+	}
+	
+	@Override
 	public Direction getOppositeDirection() {		
 		
 		switch (direction) {
@@ -48,9 +61,5 @@ public class NavigationConsole {
 			default:
 				return this.direction;
 		}		
-	}
-	
-	public void setDirection(Direction newDirection) {
-		this.direction = newDirection;
 	}
 }

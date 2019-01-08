@@ -1,4 +1,4 @@
-package com.wallapop;
+package com.wallapop.exception;
 
 public class InvalidCommandException extends Exception {
 	

@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-public class MarsRover {
+public class MarsRoverMain {
 
     public static void main(String[] args) {
         Scanner reader = new Scanner(System.in);

@@ -1,4 +1,6 @@
-package com.wallapop;
+package com.wallapop.planet;
+
+import com.wallapop.values.Direction;
 
 public class Planet {
 		
@@ -9,7 +11,8 @@ public class Planet {
 	public Planet(int sizeX, int sizeY) {
 		this.sizeX =  sizeX;
 		this.sizeY = sizeY;
-		this.positions = createMap(sizeX,sizeY);
+		this.positions = createMapGrid(sizeX, sizeY);
+		linkGridPositions();
 	}
 
 	public Position getPosition(int x, int y) {
@@ -33,15 +36,12 @@ public class Planet {
 		return this.positions[x][y];
 	}
 	
-	public Position[][] createMap(int sizeX, int sizeY) {
-		
-		positions = new Position[sizeX][sizeY];
-		int[][] moves = {
-	            {-1, 0},
-	            { 0, 1},
-	            { 1, 0},
-	            { 0,-1}
-	        };
+	public Position[][] getArrayPositions(){
+		return this.positions;
+	}
+	
+	private Position[][] createMapGrid(int sizeX, int sizeY) {
+		Position[][] positions = new Position[sizeX][sizeY];
 		
 		for (int row = 0; row < sizeX; row++) {
 			for (int col = 0; col < sizeY; col ++) {
@@ -49,22 +49,32 @@ public class Planet {
 			}
 		}
 		
-		int destintyRow = 0;
-		int destinyCol = 0;
-		Position position;
+		return positions;
+	}
+	
+	private void linkGridPositions() {	
 		
+		int[][] moves = {
+	            {-1, 0},
+	            { 0, 1},
+	            { 1, 0},
+	            { 0,-1}
+	        };
+		
+		int nextPositionRow = 0;
+		int nextPositionCol = 0;
+		Position position;
+						
 		for (int row = 0; row < sizeX; row++) {
 			for (int col = 0; col < sizeY; col ++) {
 				position = getPosition(row,col);				
 				for (Direction direction : Direction.values()) {
-					destintyRow = row + moves[direction.getValue()][0];
-					destinyCol = col + moves[direction.getValue()][1];
-					position.setPositionAround(getPosition(destintyRow,destinyCol), direction.getValue());			
+					nextPositionRow = row + moves[direction.getValue()][0];
+					nextPositionCol = col + moves[direction.getValue()][1];
+					position.setPositionAround(getPosition(nextPositionRow,nextPositionCol), direction.getValue());			
 				}
 			}
 		}
-		
-		return positions;
 	}
 	
 	@Override

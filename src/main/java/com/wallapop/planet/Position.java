@@ -1,14 +1,17 @@
-package com.wallapop;
+package com.wallapop.planet;
+
+import com.wallapop.rover.MarsRover;
+import com.wallapop.values.Direction;
 
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode
 public class Position {
 	
-	private Rover rover;
+	private MarsRover rover;
 	private Position[] positionsAround = new Position[4];
 
-	public void setRover(Rover rover) {
+	public void setRover(MarsRover rover) {
 		this.rover = rover;
 	}
 	
@@ -31,7 +34,7 @@ public class Position {
 		return position;
 	}
 
-	public Rover getRover() {
+	public MarsRover getRover() {
 		return this.rover;
 	}
 }

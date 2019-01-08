@@ -1,4 +1,4 @@
-package com.wallapop;
+package com.wallapop.values;
 
 import java.util.HashMap;
 import java.util.Map;
