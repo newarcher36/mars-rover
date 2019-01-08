@@ -7,4 +7,9 @@ public class Obstacle {
 	public Obstacle(Position position) {
 		this.position = position;
 	}
+	
+	@Override
+	public String toString() {
+		return "X";
+	}
 }

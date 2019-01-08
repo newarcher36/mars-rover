@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.wallapop.exception.InvalidCommandException;
+import com.wallapop.utils.Utils;
 import com.wallapop.values.Command;
 import com.wallapop.values.Direction;
 
@@ -12,6 +13,7 @@ public class NavigationConsole implements Console {
 	
 	private Direction direction;
 	private List<Command> commands;
+	private String message;
 	
 	public List<Command> getCommands() {
 		return this.commands;
@@ -61,5 +63,20 @@ public class NavigationConsole implements Console {
 			default:
 				return this.direction;
 		}		
+	}
+
+	@Override
+	public Console setMessage(String msg) {
+		this.message = msg;
+		return this;
+	}
+
+	@Override
+	public String getMessage() {
+		return this.message;
+	}
+	
+	public void print() {
+		Utils.printMessage(this.message);
 	}
 }

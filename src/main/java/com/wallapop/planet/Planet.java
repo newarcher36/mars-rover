@@ -81,12 +81,14 @@ public class Planet {
     public String toString() {
 		
 		String map = "";
+		String simbol = "";
 		
 		for (int row = 0; row < sizeX; row++) {						
 			for (int col = 0; col < sizeY; col++) {				
 				map += "|";
-				if (positions[row][col].getRover() != null) {
-					map += positions[row][col].toString();
+				simbol = positions[row][col].toString(); 
+				if(!simbol.isEmpty()) {
+					map += simbol;
 					continue;
 				}				
 				map += "_";

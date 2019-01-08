@@ -214,15 +214,27 @@ public class MarsRoverTest {
 		
 		assertTrue(rover.isObstacleDetected());
 		assertEquals(marsMap.getPosition(5, 11),rover.getPosition());
-	}
-	
-	@Test
-	public void rover_full_trek_in_mars() {
-		
+		assertEquals("Obstacle detected! Rover has stopped.",rover.getNavigationConsole().getMessage());
 	}
 	
 	@Test
 	public void test_render_map() {
 		
+		Mars marsMap = new Mars(6, 4);
+		Position obstaclePosition = marsMap.getPosition(5, 12);
+		obstaclePosition.setObstacle(new Obstacle(obstaclePosition));		
+
+		MarsRover rover = new MarsRover();						
+		Position roverPosition = marsMap.getPosition(6, 10);
+		rover.setPosition(roverPosition);		
+		roverPosition.setRover(rover);
+		
+		String expected = "|_|_|#|_|\n" +
+						  "|_|_|_|_|\n" +
+						  "|_|_|_|_|\n" +
+						  "|_|_|_|_|\n" +
+						  "|_|_|_|_|\n" +
+						  "|X|_|_|_|\n";
+		assertEquals(expected, marsMap.toString());		
 	}
 }

@@ -31,8 +31,12 @@ public class MarsRover implements Rover {
 		Position nextPosition = currentPosition.getNextPosition(direction);
 		this.obstacleDetected = detectObstacle(nextPosition);
 		
-		if (!obstacleDetected) 
-			moveRover(nextPosition);
+		if (obstacleDetected) {
+			navigationConsole.setMessage("Obstacle detected! Rover has stopped.").print();
+			return;
+		}
+		
+		moveRover(nextPosition);			
 	}
 	
 	@Override
@@ -81,7 +85,7 @@ public class MarsRover implements Rover {
 					turnRover(--currentDirectionValue);
 					break;
 			}
-		}		
+		}
 	}
 	
 	public boolean isObstacleDetected() {
