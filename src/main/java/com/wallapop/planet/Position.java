@@ -1,6 +1,6 @@
 package com.wallapop.planet;
 
-import com.wallapop.rover.MarsRover;
+import com.wallapop.rover.Rover;
 import com.wallapop.values.Direction;
 
 import lombok.EqualsAndHashCode;
@@ -8,11 +8,12 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode
 public class Position {
 	
-	private MarsRover rover;
+	private Rover marsRover;
+	private Obstacle obstacle;
 	private Position[] positionsAround = new Position[4];
 
-	public void setRover(MarsRover rover) {
-		this.rover = rover;
+	public void setRover(Rover marsRover) {
+		this.marsRover = marsRover;
 	}
 	
 	public Position getNextPosition(Direction orientation) {
@@ -27,14 +28,22 @@ public class Position {
 	public String toString() {
 		String position = "";
 		
-		if (rover != null) {
-			position = rover.toString();
+		if (marsRover != null) {
+			position = marsRover.toString();
 		}
 		
 		return position;
 	}
 
-	public MarsRover getRover() {
-		return this.rover;
+	public Rover getRover() {
+		return this.marsRover;
+	}
+
+	public void setObstacle(Obstacle obstacle) {
+		this.obstacle = obstacle;
+	}
+
+	public Obstacle getObstacle() {
+		return this.obstacle;
 	}
 }

@@ -1,15 +1,19 @@
 package com.wallapop.rover;
 
+import java.util.ListIterator;
+
 import com.wallapop.planet.Position;
+import com.wallapop.values.Command;
 import com.wallapop.values.Direction;
 
 public class MarsRover implements Rover {
 
 	private Position currentPosition;
-	private NavigationConsole navigationConsole = new NavigationConsole();
+	private Console navigationConsole = new NavigationConsole();
+	private boolean obstacleDetected = false;
 
 	@Override
-	public NavigationConsole getNavigationConsole() {
+	public Console getNavigationConsole() {
 		return this.navigationConsole;
 	}
 
@@ -23,13 +27,25 @@ public class MarsRover implements Rover {
 		this.currentPosition = position;
 	}
 	
+	private void detectAndMove(Direction direction) {
+		Position nextPosition = currentPosition.getNextPosition(direction);
+		this.obstacleDetected = detectObstacle(nextPosition);
+		
+		if (!obstacleDetected) 
+			moveRover(nextPosition);
+	}
+	
 	@Override
-	public void moveRover(Direction direction) {
+	public void moveRover(Position nextPosition) {		
 		this.currentPosition.setRover(null);
-		setPosition(currentPosition.getNextPosition(direction));
+		setPosition(nextPosition);
 		this.currentPosition.setRover(this);
 	}
 	
+	public boolean detectObstacle(Position nextPosition) {
+		return (nextPosition.getObstacle() != null) ? true : false;
+	}
+
 	@Override
 	public void turnRover(int directionValue) {
 		if (directionValue < 0) {
@@ -43,16 +59,18 @@ public class MarsRover implements Rover {
 	@Override
 	public void go() {
 		
-		navigationConsole.getCommands().forEach( command -> {
-			
+		ListIterator<Command> iterator = navigationConsole.getCommands().listIterator();
+		
+		while (iterator.hasNext() && !isObstacleDetected()) {
 			int currentDirectionValue;
+			Command command = iterator.next();
 			
 			switch(command) {
 				case FOREWARD:
-					moveRover(navigationConsole.getDirection());
+					detectAndMove(navigationConsole.getDirection());
 					break;
 				case BACKWARD:
-					moveRover(navigationConsole.getOppositeDirection());
+					detectAndMove(navigationConsole.getOppositeDirection());
 					break;
 				case RIGHT:
 					currentDirectionValue = navigationConsole.getDirection().getValue();
@@ -62,10 +80,14 @@ public class MarsRover implements Rover {
 					currentDirectionValue = navigationConsole.getDirection().getValue();
 					turnRover(--currentDirectionValue);
 					break;
-			}			
-			});
+			}
+		}		
 	}
 	
+	public boolean isObstacleDetected() {
+		return this.obstacleDetected;
+	}
+
 	@Override
     public String toString() {
 		return "#";

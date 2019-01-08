@@ -3,6 +3,7 @@ package com.wallapop;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Arrays;
 import java.util.List;
@@ -11,8 +12,9 @@ import org.junit.Test;
 
 import com.wallapop.exception.InvalidCommandException;
 import com.wallapop.planet.Mars;
+import com.wallapop.planet.Obstacle;
 import com.wallapop.planet.Position;
-import com.wallapop.rover.NavigationConsole;
+import com.wallapop.rover.Console;
 import com.wallapop.rover.MarsRover;
 import com.wallapop.values.Direction;
 
@@ -187,7 +189,7 @@ public class MarsRoverTest {
 	
 	@Test
 	public void invalid_command_characters() throws Exception {				
-		NavigationConsole navigationConsole = new MarsRover().getNavigationConsole();
+		Console navigationConsole = new MarsRover().getNavigationConsole();
 		List<Character> commands = Arrays.asList('f','b','k');
 		
 		assertThrows(InvalidCommandException.class,() -> navigationConsole.setCommands(commands),"Invalid command: k");
@@ -197,18 +199,21 @@ public class MarsRoverTest {
 	public void rover_detects_obstacles() throws Exception {
 		
 		Mars marsMap = new Mars(16, 14);
-		Position roverPosition = marsMap.getPosition(6, 12);
+		Position obstaclePosition = marsMap.getPosition(5, 12);
+		obstaclePosition.setObstacle(new Obstacle(obstaclePosition));		
 
 		MarsRover rover = new MarsRover();
 		rover.getNavigationConsole().setDirection(Direction.EAST);
 		rover.getNavigationConsole().setCommands(Arrays.asList('f','l','f','r','f'));
+		
+		Position roverPosition = marsMap.getPosition(6, 10);
 		rover.setPosition(roverPosition);
 		
-		roverPosition.setRover(rover);
-		
-		
-		//assertThrows();
+		roverPosition.setRover(rover);		
 		rover.go();
+		
+		assertTrue(rover.isObstacleDetected());
+		assertEquals(marsMap.getPosition(5, 11),rover.getPosition());
 	}
 	
 	@Test
