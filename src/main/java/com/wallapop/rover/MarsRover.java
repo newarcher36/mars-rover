@@ -10,7 +10,7 @@ public class MarsRover implements Rover {
 
 	private Position currentPosition;
 	private Console navigationConsole = new NavigationConsole();
-	private boolean obstacleDetected = false;
+	private boolean obstacleDetected = false;	
 
 	@Override
 	public Console getNavigationConsole() {
@@ -28,6 +28,7 @@ public class MarsRover implements Rover {
 	}
 	
 	private void detectAndMove(Direction direction) {
+		
 		Position nextPosition = currentPosition.getNextPosition(direction);
 		this.obstacleDetected = detectObstacle(nextPosition);
 		
@@ -37,7 +38,7 @@ public class MarsRover implements Rover {
 		}
 		
 		moveRover(nextPosition);			
-	}
+	}	
 	
 	@Override
 	public void moveRover(Position nextPosition) {		
@@ -61,16 +62,18 @@ public class MarsRover implements Rover {
 	}
 	
 	@Override
-	public void go() {
+	public void go() {		
 		
 		ListIterator<Command> iterator = navigationConsole.getCommands().listIterator();
+		int currentDirectionValue;						
+		rearmRover();
 		
 		while (iterator.hasNext() && !isObstacleDetected()) {
-			int currentDirectionValue;
+			
 			Command command = iterator.next();
 			
 			switch(command) {
-				case FOREWARD:
+				case FOREWARD:					
 					detectAndMove(navigationConsole.getDirection());
 					break;
 				case BACKWARD:
@@ -88,6 +91,13 @@ public class MarsRover implements Rover {
 		}
 	}
 	
+	@Override
+	public void rearmRover() {
+		if (isObstacleDetected())
+			obstacleDetected = false;
+	}
+	
+	@Override
 	public boolean isObstacleDetected() {
 		return this.obstacleDetected;
 	}

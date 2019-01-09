@@ -1,22 +1,12 @@
 package com.wallapop;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
 
-import com.wallapop.utils.Utils;
+import com.wallapop.control.Control;
+import com.wallapop.control.MissionControl;
 
 public class MarsRoverMain {
 
     public static void main(String[] args) {
-    	
-        
-        
-        
-        
-
-        
-        
-        
+    	Control missionControl = new MissionControl();
+    	missionControl.init();
     }    
 }

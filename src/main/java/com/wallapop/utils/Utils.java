@@ -11,8 +11,8 @@ public final class Utils {
 			throw new MissingArgumentException(msg);
 	}
 	
-	public static final void printMessage(String msg) {
-		System.out.println("Message from mars rover : " + msg);
+	public static final void printMessage(Object msg) {
+		System.out.println(msg);
 	}
 	
 	public static int getIntegerInput(Scanner reader,String msg) {

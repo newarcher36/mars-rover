@@ -14,5 +14,9 @@ public interface Rover {
 	
 	Console getNavigationConsole();
 	
+	void rearmRover();
+	
+	boolean isObstacleDetected();
+	
 	void go();
 }

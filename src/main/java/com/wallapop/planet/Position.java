@@ -11,7 +11,14 @@ public class Position {
 	private Rover marsRover;	
 	private Position[] positionsAround = new Position[4];
 	private Obstacle obstacle;
+	private int row;
+	private int col;
 	
+	public Position(int row, int col) {
+		this.row = row;
+		this.col = col;
+	}
+
 	public Rover getRover() {
 		return this.marsRover;
 	}
@@ -34,6 +41,14 @@ public class Position {
 
 	public void setObstacle(Obstacle obstacle) {
 		this.obstacle = obstacle;
+	}
+	
+	public int getRow() {
+		return row;
+	}
+
+	public int getCol() {
+		return col;
 	}
 	
 	@Override

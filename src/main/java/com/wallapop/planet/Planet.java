@@ -2,7 +2,7 @@ package com.wallapop.planet;
 
 import com.wallapop.values.Direction;
 
-public class Planet {
+public abstract class Planet {
 		
 	private Position[][] positions;
 	private int sizeX;
@@ -45,7 +45,7 @@ public class Planet {
 		
 		for (int row = 0; row < sizeX; row++) {
 			for (int col = 0; col < sizeY; col ++) {
-				positions[row][col] = new Position();
+				positions[row][col] = new Position(row,col);
 			}
 		}
 		
