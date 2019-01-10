@@ -12,8 +12,6 @@ public interface Console {
 	
 	void setCommands(List<Character> commandCharacters) throws InvalidCommandException;
 	
-	List<Command> parseCommands(List<Character> commandCharacters) throws InvalidCommandException;
-	
 	Direction getDirection();
 	
 	void setDirection(Direction newDirection);	

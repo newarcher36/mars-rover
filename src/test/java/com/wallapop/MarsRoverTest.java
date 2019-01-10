@@ -180,7 +180,6 @@ public class MarsRoverTest {
 		assertEquals(Direction.EAST, rover.getNavigationConsole().getDirection());
 		assertEquals(marsMap.getPosition(6, 2), rover.getPosition());
 		
-		
 		rover.getNavigationConsole().setCommands(Arrays.asList('b','b','b','b'));
 		rover.go();
 		
@@ -201,7 +200,7 @@ public class MarsRoverTest {
 		
 		Mars marsMap = new Mars(16, 14);
 		Position obstaclePosition = marsMap.getPosition(5, 12);
-		obstaclePosition.setObstacle(new Obstacle(obstaclePosition));		
+		obstaclePosition.setObstacle(new Obstacle());		
 
 		MarsRover rover = new MarsRover();
 		rover.getNavigationConsole().setDirection(Direction.EAST);
@@ -221,7 +220,7 @@ public class MarsRoverTest {
 		rover.go();
 		
 		assertFalse(rover.isObstacleDetected());
-		assertEquals(marsMap.getPosition(4, 11),rover.getPosition());
+		assertEquals(marsMap.getPosition(5, 10),rover.getPosition());
 	}
 	
 	@Test
@@ -229,7 +228,7 @@ public class MarsRoverTest {
 		
 		Mars marsMap = new Mars(6, 4);
 		Position obstaclePosition = marsMap.getPosition(5, 12);
-		obstaclePosition.setObstacle(new Obstacle(obstaclePosition));		
+		obstaclePosition.setObstacle(new Obstacle());		
 
 		MarsRover rover = new MarsRover();						
 		Position roverPosition = marsMap.getPosition(6, 10);

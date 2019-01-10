@@ -1,12 +1,9 @@
 package com.wallapop.rover.console;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import com.wallapop.exception.InvalidCommandException;
 import com.wallapop.rover.commands.Command;
-import com.wallapop.rover.commands.CommandRegistry;
 import com.wallapop.utils.Utils;
 import com.wallapop.values.Direction;
 
@@ -15,6 +12,7 @@ public class NavigationConsole implements Console {
 	private Direction direction;
 	private List<Command> commands;
 	private String message = "";
+	private Parser parser = new CommandParser();
 	
 	public List<Command> getCommands() {
 		return this.commands;
@@ -22,22 +20,8 @@ public class NavigationConsole implements Console {
 	
 	@Override
 	public void setCommands(List<Character> commandCharacters) throws InvalidCommandException {
-		this.commands = parseCommands(commandCharacters);
-	}
-
-	@Override
-	public List<Command> parseCommands(List<Character> commandCharacters) throws InvalidCommandException {
-		
-		List<Command> commands = new ArrayList<>();
-				
-        for (char commandChar : commandCharacters) {
-        	Command command = CommandRegistry.getCommand(commandChar);
-        	Optional.ofNullable(command).orElseThrow(() -> new InvalidCommandException("Invalid command: " + commandChar));
-        	commands.add(command);
-        }					
-        
-		return commands;		
-	}
+		this.commands = parser.parseCommands(commandCharacters);
+	}	
 	
 	@Override
 	public Direction getDirection() {
@@ -59,7 +43,6 @@ public class NavigationConsole implements Console {
 		this.message = msg;
 		return this;
 	}
-
 	
 	public void print() {
 		Utils.printMessage(this.message);

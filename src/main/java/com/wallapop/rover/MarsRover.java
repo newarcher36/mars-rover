@@ -34,7 +34,7 @@ public class MarsRover implements Rover {
 		
 		detectObstacle(nextPosition);
 		
-		if (obstacleDetected) {
+		if (isObstacleDetected()) {
 			navigationConsole.setMessage("Obstacle detected! Rover has stopped.").print();
 			return;
 		}
@@ -50,8 +50,6 @@ public class MarsRover implements Rover {
 			this.obstacleDetected = true;		
 	}
 	
-	
-
 	@Override
 	public void move(Direction direction) {		
 		navigationConsole.setDirection(direction);		
@@ -63,13 +61,13 @@ public class MarsRover implements Rover {
 		ListIterator<Command> iterator = navigationConsole.getCommands().listIterator();									
 		Command command;
 		
+		if (isObstacleDetected()) {
+			rearmRover();
+		}		
+		
 		while (iterator.hasNext() && !isObstacleDetected()) {
 			command = iterator.next();
 			command.execute(this);
-		}
-		
-		if (isObstacleDetected()) {
-			rearmRover();
 		}			
 	}
 	

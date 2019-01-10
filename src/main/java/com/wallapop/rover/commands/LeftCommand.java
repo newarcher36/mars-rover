@@ -4,10 +4,6 @@ import com.wallapop.rover.Rover;
 import com.wallapop.values.Direction;
 
 public class LeftCommand implements Command {
-
-	static {
-		CommandRegistry.register('l',new LeftCommand());
-	}
 	
 	@Override
 	public void execute(Rover rover) {

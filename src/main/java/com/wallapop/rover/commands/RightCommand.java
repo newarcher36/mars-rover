@@ -3,11 +3,7 @@ package com.wallapop.rover.commands;
 import com.wallapop.rover.Rover;
 import com.wallapop.values.Direction;
 
-public class RightCommand implements Command {
-	
-	static {
-		CommandRegistry.register('r',new ForewardCommand());
-	}
+public class RightCommand implements Command {	
 
 	@Override
 	public void execute(Rover rover) {

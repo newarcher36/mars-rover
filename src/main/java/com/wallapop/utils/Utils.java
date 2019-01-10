@@ -16,12 +16,34 @@ public final class Utils {
 	}
 	
 	public static int getIntegerInput(Scanner reader,String msg) {
-    	printMessage(msg);
-    	return reader.nextInt();
+		
+		printMessage(msg);
+		
+		int value = 0;
+		
+		do {
+			if (reader.hasNextInt()) {
+				value = reader.nextInt();
+				break;
+			}
+		} while(true);		    
+    	
+    	return value;
     }
 	
 	public static String getStringInput(Scanner reader,String msg) {
+		
     	printMessage(msg);
-    	return reader.next();
+		
+		String value = "";
+		
+		do {
+			if (reader.hasNext()) {
+				value = reader.next();
+				break;
+			}
+		} while(true);
+    	
+    	return value;
     }
 }
