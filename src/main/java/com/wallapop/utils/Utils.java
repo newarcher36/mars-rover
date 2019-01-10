@@ -16,6 +16,7 @@ public final class Utils {
 	
 	public static final void printMessage(String msg) {
 		System.out.println(msg);
+	    System.out.flush();
 	}
 	
 	public static int getIntegerInput(Scanner reader,String msg) {
