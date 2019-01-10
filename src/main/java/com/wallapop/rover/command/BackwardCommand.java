@@ -1,4 +1,4 @@
-package com.wallapop.rover.commands;
+package com.wallapop.rover.command;
 
 import com.wallapop.planet.Position;
 import com.wallapop.rover.Rover;

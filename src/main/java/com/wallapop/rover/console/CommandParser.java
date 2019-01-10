@@ -5,12 +5,12 @@ import java.util.List;
 import java.util.Optional;
 
 import com.wallapop.exception.InvalidCommandException;
-import com.wallapop.rover.commands.BackwardCommand;
-import com.wallapop.rover.commands.Command;
-import com.wallapop.rover.commands.CommandRegistry;
-import com.wallapop.rover.commands.ForewardCommand;
-import com.wallapop.rover.commands.LeftCommand;
-import com.wallapop.rover.commands.RightCommand;
+import com.wallapop.rover.command.BackwardCommand;
+import com.wallapop.rover.command.Command;
+import com.wallapop.rover.command.CommandRegistry;
+import com.wallapop.rover.command.ForewardCommand;
+import com.wallapop.rover.command.LeftCommand;
+import com.wallapop.rover.command.RightCommand;
 
 public class CommandParser implements Parser {
 
@@ -20,10 +20,10 @@ public class CommandParser implements Parser {
 		loadCommands();
 		
 		List<Command> commands = new ArrayList<>();
-				
+		Command command;		
         for (char commandChar : commandCharacters) {
-        	Command command = CommandRegistry.getCommand(commandChar);
-        	Optional.ofNullable(command).orElseThrow(() -> new InvalidCommandException("Invalid command: " + commandChar));
+        	Optional<Command> optional = Optional.ofNullable(CommandRegistry.getCommand(commandChar)) ;
+        	command = optional.orElseThrow(() -> new InvalidCommandException("Invalid command: " + commandChar));
         	commands.add(command);
         }					
         

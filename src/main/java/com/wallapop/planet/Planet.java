@@ -11,7 +11,7 @@ public abstract class Planet {
 	public Planet(int sizeX, int sizeY) {
 		this.sizeX =  sizeX;
 		this.sizeY = sizeY;
-		this.positions = createMapGrid(sizeX, sizeY);
+		createMapGrid(sizeX, sizeY);
 		linkGridPositions();
 	}
 
@@ -40,16 +40,14 @@ public abstract class Planet {
 		return this.positions;
 	}
 	
-	private Position[][] createMapGrid(int sizeX, int sizeY) {
-		Position[][] positions = new Position[sizeX][sizeY];
+	private void createMapGrid(int sizeX, int sizeY) {
+		this.positions = new Position[sizeX][sizeY];
 		
 		for (int row = 0; row < sizeX; row++) {
 			for (int col = 0; col < sizeY; col ++) {
-				positions[row][col] = new Position(row,col);
+				this.positions[row][col] = new Position(row,col);
 			}
 		}
-		
-		return positions;
 	}
 	
 	private void linkGridPositions() {	
@@ -80,23 +78,22 @@ public abstract class Planet {
 	@Override
     public String toString() {
 		
-		String map = "";
+		StringBuilder map = new StringBuilder();
 		String simbol = "";
 		
 		for (int row = 0; row < sizeX; row++) {						
 			for (int col = 0; col < sizeY; col++) {				
-				map += "|";
+				map.append("|");
 				simbol = positions[row][col].toString(); 
 				if(!simbol.isEmpty()) {
-					map += simbol;
+					map.append(simbol);
 					continue;
 				}				
-				map += "_";
-			}
-			
-			map +="|\n";
+				map.append("_");
+			}			
+			map.append("|\n");
 		}
 		
-		return map;
+		return map.toString();
 	}
 }

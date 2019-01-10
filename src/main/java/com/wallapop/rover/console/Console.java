@@ -3,7 +3,7 @@ package com.wallapop.rover.console;
 import java.util.List;
 
 import com.wallapop.exception.InvalidCommandException;
-import com.wallapop.rover.commands.Command;
+import com.wallapop.rover.command.Command;
 import com.wallapop.values.Direction;
 
 public interface Console {

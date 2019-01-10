@@ -3,7 +3,7 @@ package com.wallapop.rover;
 import java.util.ListIterator;
 
 import com.wallapop.planet.Position;
-import com.wallapop.rover.commands.Command;
+import com.wallapop.rover.command.Command;
 import com.wallapop.rover.console.Console;
 import com.wallapop.rover.console.NavigationConsole;
 import com.wallapop.values.Direction;

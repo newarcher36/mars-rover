@@ -1,18 +1,23 @@
 package com.wallapop.utils;
 
 import java.util.Scanner;
+import java.util.logging.Logger;
 
 import com.wallapop.exception.MissingArgumentException;
 
 public final class Utils {
+	
+	private static Logger logger = Logger.getLogger("Mars Rover info: ");
+	
+	private Utils() {}
 	
 	public static final void notNull(Object obj,String msg) throws MissingArgumentException {
 		if(obj == null)
 			throw new MissingArgumentException(msg);
 	}
 	
-	public static final void printMessage(Object msg) {
-		System.out.println(msg);
+	public static final void printMessage(String msg) {
+		logger.info(msg);
 	}
 	
 	public static int getIntegerInput(Scanner reader,String msg) {

@@ -1,5 +1,8 @@
 package com.wallapop.control;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -15,9 +18,21 @@ import com.wallapop.values.Direction;
 
 public class MissionControl extends Control {
 
+	private static final String BANNER_FILE = "/banner.txt";
+	private static String welcomeMessage;
 	private Scanner reader = new Scanner(System.in);
 	private Mars marsMap;
 	private Rover marsRover;
+
+	static {
+
+		InputStream is = MissionControl.class.getResourceAsStream(BANNER_FILE);
+		welcomeMessage = new BufferedReader(new InputStreamReader(is)).lines().parallel()
+				.collect(Collectors.joining("\n"));
+
+		Utils.printMessage(welcomeMessage);
+
+	}
 
 	@Override
 	public void setMap() {
@@ -75,8 +90,6 @@ public class MissionControl extends Control {
 		do {
 			printMissionInfo();
 			command = Utils.getStringInput(reader, msgInsert);
-			System.out.print("\033[H\033[2J");
-			System.out.flush();
 
 			if (command.equals("q")) {
 				Utils.printMessage("Bye!!!");
@@ -94,7 +107,8 @@ public class MissionControl extends Control {
 
 	@Override
 	protected void printMissionInfo() {
-		int roverx, rovery;
+		int roverx;
+		int rovery;
 		Direction direction;
 		roverx = marsRover.getPosition().getRow();
 		rovery = marsRover.getPosition().getCol();

@@ -5,7 +5,7 @@ import com.wallapop.control.MissionControl;
 
 public class MarsRoverMain {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) {    	
     	Control missionControl = new MissionControl();
     	missionControl.init();
     }    
