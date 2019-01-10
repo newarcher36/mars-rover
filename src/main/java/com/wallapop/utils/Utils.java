@@ -7,8 +7,6 @@ import com.wallapop.exception.MissingArgumentException;
 
 public final class Utils {
 	
-	private static Logger logger = Logger.getLogger("Mars Rover info: ");
-	
 	private Utils() {}
 	
 	public static final void notNull(Object obj,String msg) throws MissingArgumentException {
@@ -17,7 +15,7 @@ public final class Utils {
 	}
 	
 	public static final void printMessage(String msg) {
-		logger.info(msg);
+		System.out.println(msg);
 	}
 	
 	public static int getIntegerInput(Scanner reader,String msg) {
