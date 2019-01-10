@@ -27,8 +27,8 @@ public class Position {
 		this.marsRover = marsRover;
 	}
 	
-	public Position getNextPosition(Direction orientation) {
-		return positionsAround[orientation.getValue()];
+	public Position getNextPosition(Direction direction) {
+		return positionsAround[direction.getValue()];
 	}
 
 	public void setPositionAround(Position position, int direction) {

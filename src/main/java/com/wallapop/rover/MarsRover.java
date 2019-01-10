@@ -3,7 +3,9 @@ package com.wallapop.rover;
 import java.util.ListIterator;
 
 import com.wallapop.planet.Position;
-import com.wallapop.values.Command;
+import com.wallapop.rover.commands.Command;
+import com.wallapop.rover.console.Console;
+import com.wallapop.rover.console.NavigationConsole;
 import com.wallapop.values.Direction;
 
 public class MarsRover implements Rover {
@@ -25,76 +27,55 @@ public class MarsRover implements Rover {
 	@Override
 	public void setPosition(Position position) {
 		this.currentPosition = position;
-	}
+	}		
 	
-	private void detectAndMove(Direction direction) {
+	@Override
+	public void move(Position nextPosition) {
 		
-		Position nextPosition = currentPosition.getNextPosition(direction);
-		this.obstacleDetected = detectObstacle(nextPosition);
+		detectObstacle(nextPosition);
 		
 		if (obstacleDetected) {
 			navigationConsole.setMessage("Obstacle detected! Rover has stopped.").print();
 			return;
 		}
 		
-		moveRover(nextPosition);			
-	}	
-	
-	@Override
-	public void moveRover(Position nextPosition) {		
 		this.currentPosition.setRover(null);
 		setPosition(nextPosition);
 		this.currentPosition.setRover(this);
 	}
 	
-	public boolean detectObstacle(Position nextPosition) {
-		return (nextPosition.getObstacle() != null) ? true : false;
+	@Override
+	public void detectObstacle(Position nextPosition) {
+		if (nextPosition.getObstacle() != null)
+			this.obstacleDetected = true;		
 	}
+	
+	
 
 	@Override
-	public void turnRover(int directionValue) {
-		if (directionValue < 0) {
-			directionValue = Direction.WEST.getValue();
-		} else if (directionValue == Direction.values().length) {
-			directionValue = Direction.NORTH.getValue();
-		}
-		navigationConsole.setDirection(Direction.getDirectionByValue(directionValue));		
+	public void move(Direction direction) {		
+		navigationConsole.setDirection(direction);		
 	}
 	
 	@Override
 	public void go() {		
 		
-		ListIterator<Command> iterator = navigationConsole.getCommands().listIterator();
-		int currentDirectionValue;						
-		rearmRover();
+		ListIterator<Command> iterator = navigationConsole.getCommands().listIterator();									
+		Command command;
 		
 		while (iterator.hasNext() && !isObstacleDetected()) {
-			
-			Command command = iterator.next();
-			
-			switch(command) {
-				case FOREWARD:					
-					detectAndMove(navigationConsole.getDirection());
-					break;
-				case BACKWARD:
-					detectAndMove(navigationConsole.getOppositeDirection());
-					break;
-				case RIGHT:
-					currentDirectionValue = navigationConsole.getDirection().getValue();
-					turnRover(++currentDirectionValue);
-					break;
-				case LEFT:
-					currentDirectionValue = navigationConsole.getDirection().getValue();
-					turnRover(--currentDirectionValue);
-					break;
-			}
+			command = iterator.next();
+			command.execute(this);
 		}
+		
+		if (isObstacleDetected()) {
+			rearmRover();
+		}			
 	}
 	
 	@Override
-	public void rearmRover() {
-		if (isObstacleDetected())
-			obstacleDetected = false;
+	public void rearmRover() {		
+		obstacleDetected = false;
 	}
 	
 	@Override

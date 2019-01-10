@@ -1,19 +1,20 @@
-package com.wallapop.rover;
+package com.wallapop.rover.console;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import com.wallapop.exception.InvalidCommandException;
+import com.wallapop.rover.commands.Command;
+import com.wallapop.rover.commands.CommandRegistry;
 import com.wallapop.utils.Utils;
-import com.wallapop.values.Command;
 import com.wallapop.values.Direction;
 
 public class NavigationConsole implements Console {
 	
 	private Direction direction;
 	private List<Command> commands;
-	private String message;
+	private String message = "";
 	
 	public List<Command> getCommands() {
 		return this.commands;
@@ -28,14 +29,14 @@ public class NavigationConsole implements Console {
 	public List<Command> parseCommands(List<Character> commandCharacters) throws InvalidCommandException {
 		
 		List<Command> commands = new ArrayList<>();
-		
-		for (char commandChar : commandCharacters) {
-			Command command = Command.getCommandByChar(commandChar);
-			Optional<Command> optional = Optional.ofNullable(command);
-			commands.add(optional.orElseThrow(() -> new InvalidCommandException("Invalid command: " + commandChar)));
-		}
-		
-		return commands;
+				
+        for (char commandChar : commandCharacters) {
+        	Command command = CommandRegistry.getCommand(commandChar);
+        	Optional.ofNullable(command).orElseThrow(() -> new InvalidCommandException("Invalid command: " + commandChar));
+        	commands.add(command);
+        }					
+        
+		return commands;		
 	}
 	
 	@Override
@@ -49,32 +50,16 @@ public class NavigationConsole implements Console {
 	}
 	
 	@Override
-	public Direction getOppositeDirection() {		
-		
-		switch (direction) {
-			case NORTH:
-				 return Direction.SOUTH;				
-			case EAST:
-				return Direction.WEST;
-			case SOUTH:
-				return Direction.NORTH;
-			case WEST:
-				return Direction.EAST;	
-			default:
-				return this.direction;
-		}		
+	public String getMessage() {
+		return this.message;
 	}
-
+	
 	@Override
 	public Console setMessage(String msg) {
 		this.message = msg;
 		return this;
 	}
 
-	@Override
-	public String getMessage() {
-		return this.message;
-	}
 	
 	public void print() {
 		Utils.printMessage(this.message);

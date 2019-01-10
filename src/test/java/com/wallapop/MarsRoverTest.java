@@ -1,5 +1,6 @@
 package com.wallapop;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -14,8 +15,8 @@ import com.wallapop.exception.InvalidCommandException;
 import com.wallapop.planet.Mars;
 import com.wallapop.planet.Obstacle;
 import com.wallapop.planet.Position;
-import com.wallapop.rover.Console;
 import com.wallapop.rover.MarsRover;
+import com.wallapop.rover.console.Console;
 import com.wallapop.values.Direction;
 
 public class MarsRoverTest {
@@ -196,7 +197,7 @@ public class MarsRoverTest {
 	}
 	
 	@Test
-	public void rover_detects_obstacles() throws Exception {
+	public void rover_detect_obstacles_and_rearm() throws Exception {
 		
 		Mars marsMap = new Mars(16, 14);
 		Position obstaclePosition = marsMap.getPosition(5, 12);
@@ -215,6 +216,12 @@ public class MarsRoverTest {
 		assertTrue(rover.isObstacleDetected());
 		assertEquals(marsMap.getPosition(5, 11),rover.getPosition());
 		assertEquals("Obstacle detected! Rover has stopped.",rover.getNavigationConsole().getMessage());
+		
+		rover.getNavigationConsole().setCommands(Arrays.asList('b'));
+		rover.go();
+		
+		assertFalse(rover.isObstacleDetected());
+		assertEquals(marsMap.getPosition(4, 11),rover.getPosition());
 	}
 	
 	@Test

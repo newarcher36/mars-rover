@@ -1,6 +1,8 @@
 package com.wallapop.rover;
 
 import com.wallapop.planet.Position;
+import com.wallapop.rover.console.Console;
+import com.wallapop.values.Direction;
 
 public interface Rover {
 
@@ -8,11 +10,13 @@ public interface Rover {
 	
 	void setPosition(Position position);
 	
-	void moveRover(Position nextPosition);
+	void move(Position nextPosition);
 	
-	void turnRover(int directionValue);
+	void move(Direction direction);		
 	
 	Console getNavigationConsole();
+	
+	void detectObstacle(Position nextPosition);
 	
 	void rearmRover();
 	
