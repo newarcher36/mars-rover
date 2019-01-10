@@ -95,6 +95,7 @@ public class MissionControl extends Control {
 				Utils.printMessage("Bye!!!");
 				break;
 			}
+			Utils.printMessage("\033[H\033[2J");
 
 			try {
 				marsRover.getNavigationConsole().setCommands(getChars(command));
