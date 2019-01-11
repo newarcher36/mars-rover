@@ -1,18 +1,10 @@
 package com.wallapop.utils;
 
 import java.util.Scanner;
-import java.util.logging.Logger;
-
-import com.wallapop.exception.MissingArgumentException;
 
 public final class Utils {
 	
 	private Utils() {}
-	
-	public static final void notNull(Object obj,String msg) throws MissingArgumentException {
-		if(obj == null)
-			throw new MissingArgumentException(msg);
-	}
 	
 	public static final void printMessage(String msg) {
 		System.out.println(msg);
