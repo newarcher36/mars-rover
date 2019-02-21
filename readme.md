@@ -1,28 +1,35 @@
 Technologies:
 
-This test is almost written in java 8. I used a bit lombok because I think it is a very
-useful library and makes much easier the development.
-I used Template design pattern in MissionControl to abastract from the rover interfaces and so on.
-I used Command patter to implement the commands of the rover.
-Note that you have a simple but nice GUI which prints thr planet,rover and so on.
+This test is written in java 8. 
+I used lombok because I think it is a very useful library and makes easier the development in some cases.
+I used Template design pattern in Control abstract class in order to define a way to execute its methods in the required order.
+I used Command pattern to implement the commands of the rover in order to wrap the request under an object as command and encapsulate the logic of execute the command creating a loose coupling. 
 
-Difficulties:
+How to compile it?
 
-- Find the proper design pattern in some cases such as MarsRover and NavigationConsole classes.
+Please execute 'mvn clean install' in the project's root in order to build the jar.
 
-What could be improved?
-
-- I would increase the test coverage a bit more.
-- I would implement Decorator pattern in MarsRover class and NavigationConsole class
-in order to keep at 100% the open/close principle in this part of application.
-Anyways I think that I respected this principle quite a lot and of course the other ones as well.
-- I would improve some boiler plate code in unit test with Junit 5 but I did not have time. I must hand in the test.
+How to run it?
  
-You can run my test by an IDE or with this --> ./run
+a) You can import into your favourite IDE as a maven project and run it.
+b) After compilation. you can execute the script in the project's root as following --> ./run
 
-Proper feedback would be really appreciate!!!
+How to play?
+
+First you will be asked to enter the size of the mars map. Note that the map has wrapped edges. Planets are spheres after all.
+You will be prompted to enter the initial orientation of mars rover in the map.
+You can add as many obstacles at any point in the map as you want. 
+Note that the mars rover has obstacle detector.
+
+You will be prompted to enter the commands such as in order to move the rover:
+- f : go foreward.
+- b : go backward.
+- r : rotate to right.
+- l : rotate to left.
+
+Enjoy! 
 
 
-note : the welcome banner is better displayed in the IDE.
+note : the welcome banner is better displayed in an IDE.
 
 

@@ -1,4 +1,4 @@
 #!/bin/bash
 
-java -jar target/mars-rover-0.0.1.jar
+java -jar target/mars-rover-0.0.1-jar-with-dependencies.jar
 
