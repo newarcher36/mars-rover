@@ -1,6 +1,6 @@
 package com.nasa.marsrover.domain.values;
 
-public enum CmdChar {
+public enum Cmd {
 	
 	FOREWARD('f'),
 	BACKWARD('b'),
@@ -9,7 +9,7 @@ public enum CmdChar {
 	
 	private final char commandChar;
 	
-	CmdChar(char commandChar) {
+	Cmd(char commandChar) {
 		this.commandChar = commandChar;
 	}
 	

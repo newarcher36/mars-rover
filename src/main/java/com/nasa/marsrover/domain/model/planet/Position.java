@@ -33,8 +33,8 @@ public class Position {
         this.positionsAround[direction] = position;
     }
 
-    public Obstacle getObstacle() {
-        return this.obstacle;
+    public boolean hasObstacle() {
+        return obstacle != null;
     }
 
     public void setObstacle(Obstacle obstacle) {

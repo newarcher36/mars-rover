@@ -1,7 +1,6 @@
 package com.nasa.marsrover.domain.service;
 
 import com.nasa.marsrover.domain.exception.ObstacleException;
-import com.nasa.marsrover.domain.model.planet.Position;
 import com.nasa.marsrover.domain.model.rover.Rover;
 import com.nasa.marsrover.domain.values.Orders;
 import com.nasa.marsrover.domain.values.RoverCoordinates;
@@ -13,14 +12,12 @@ import java.util.stream.Collectors;
 @Named
 public class MarsRoverService implements RoverService {
 
-    private Rover marsRover = new Rover();
+    private Rover marsRover = new Rover(null);
 
     @Override
     public RoverCoordinates moveRover(Orders orders) throws ObstacleException {
-        marsRover.getNavigationConsole().setCommands(getChars(orders.getOrders()));
-        marsRover.go();
-        Position roverPosition = marsRover.getPosition();
-        return new RoverCoordinates(roverPosition.getX(),roverPosition.getY(),marsRover.getNavigationConsole().getDirection());
+        marsRover.go(orders.getOrders());
+        return marsRover.getRoverInfo();
     }
 
     @Override

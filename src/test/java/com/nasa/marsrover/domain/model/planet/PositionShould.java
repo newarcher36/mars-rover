@@ -25,7 +25,7 @@ class PositionShould {
 
     @Test void
     set_rover_in_a_position() {
-        Rover rover = new Rover();
+        Rover rover = new Rover(parser);
         currentPosition.setRover(rover);
 
         assertEquals(currentPosition.getRover(), rover);
@@ -89,7 +89,7 @@ class PositionShould {
 
     @Test void
     render_position_when_rover() {
-        currentPosition.setRover(new Rover());
+        currentPosition.setRover(new Rover(parser));
         assertEquals(currentPosition.toString(), "#");
     }
 
