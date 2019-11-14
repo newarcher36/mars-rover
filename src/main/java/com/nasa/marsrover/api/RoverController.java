@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/mars")
 public class RoverController {
+
     private final MoveRover moveRover;
 
     public RoverController(MoveRover moveRover) {

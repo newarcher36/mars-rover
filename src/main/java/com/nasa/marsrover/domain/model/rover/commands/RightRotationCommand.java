@@ -11,7 +11,7 @@ public class RightRotationCommand implements Command {
 
 	@Override
 	public void execute(Rover rover) {
-		Direction direction = rover.getNavigationConsole().getDirection(); 		
+		Direction direction = rover.getDirection();
 		int directionValue = direction.getValue();
 		
 		if (++directionValue == Direction.values().length) {

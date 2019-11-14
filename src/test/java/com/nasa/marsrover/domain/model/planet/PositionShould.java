@@ -7,6 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class PositionShould {
 
@@ -25,7 +26,7 @@ class PositionShould {
 
     @Test void
     set_rover_in_a_position() {
-        Rover rover = new Rover(parser);
+        Rover rover = new Rover();
         currentPosition.setRover(rover);
 
         assertEquals(currentPosition.getRover(), rover);
@@ -33,10 +34,9 @@ class PositionShould {
 
     @Test void
     set_obstacle_in_a_position() {
-        Obstacle obstacle = new Obstacle();
-        currentPosition.setObstacle(obstacle);
+        currentPosition.setObstacle(new Obstacle());
 
-        assertEquals(currentPosition.getObstacle(), obstacle);
+        assertTrue(currentPosition.hasObstacle());
     }
 
     @Test void
@@ -89,7 +89,7 @@ class PositionShould {
 
     @Test void
     render_position_when_rover() {
-        currentPosition.setRover(new Rover(parser));
+        currentPosition.setRover(new Rover());
         assertEquals(currentPosition.toString(), "#");
     }
 

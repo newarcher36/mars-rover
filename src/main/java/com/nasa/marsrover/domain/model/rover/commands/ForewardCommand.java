@@ -12,7 +12,7 @@ public class ForewardCommand implements Command {
 		
 	@Override
 	public void execute(Rover rover) throws ObstacleException {
-		Direction direction = rover.getNavigationConsole().getDirection();
+		Direction direction = rover.getDirection();
 		rover.moveTo(direction);
 	}
 

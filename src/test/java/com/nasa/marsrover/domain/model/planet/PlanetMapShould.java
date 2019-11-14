@@ -34,7 +34,7 @@ class PlanetMapShould {
                 Position position = planetMap.getPosition(x, y);
                 assertNotNull(position);
                 assertNull(position.getRover());
-                assertNull(position.getObstacle());
+                assertFalse(position.hasObstacle());
             }
         }
     }
@@ -145,7 +145,7 @@ class PlanetMapShould {
     @Test
     void
     render_map() {
-        planetMap.getPosition(2, 2).setRover(new Rover(parser));
+        planetMap.getPosition(2, 2).setRover(new Rover());
         planetMap.getPosition(3, 3).setObstacle(new Obstacle());
 
         String expecedMap =

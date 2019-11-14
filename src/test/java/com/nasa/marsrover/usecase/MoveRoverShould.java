@@ -2,7 +2,6 @@ package com.nasa.marsrover.usecase;
 
 import com.nasa.marsrover.domain.exception.InvalidCommandException;
 import com.nasa.marsrover.domain.exception.ObstacleException;
-import com.nasa.marsrover.domain.service.MarsRoverService;
 import com.nasa.marsrover.domain.values.Direction;
 import com.nasa.marsrover.domain.values.Orders;
 import com.nasa.marsrover.domain.values.RoverCoordinates;

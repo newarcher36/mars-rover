@@ -1,11 +1,15 @@
 package com.nasa.marsrover.domain.model.planet;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.nasa.marsrover.domain.values.Direction;
 
 public class PlanetMap {
-
+    @JsonProperty
 	private Position[][] positions;
+
+	@JsonProperty
 	private int sizeX;
+	@JsonProperty
 	private int sizeY;
 
 	public PlanetMap(int sizeX, int sizeY) {

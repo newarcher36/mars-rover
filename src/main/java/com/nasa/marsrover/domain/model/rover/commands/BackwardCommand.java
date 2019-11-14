@@ -13,7 +13,7 @@ public class BackwardCommand implements Command {
 	@Override
 	public void execute(Rover rover) throws ObstacleException {
 		
-		Direction direction = rover.getNavigationConsole().getDirection(); 
+		Direction direction = rover.getDirection();
 		
 		switch (direction) {
 		case NORTH:

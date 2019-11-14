@@ -7,14 +7,15 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Named
-public class CommandParser {
+public class CommandParserService implements ParserService {
 
     private final List<Command> commands;
 
-    public CommandParser(List<Command> commands) {
+    public CommandParserService(List<Command> commands) {
         this.commands = commands;
     }
 
+    @Override
     public List<Command> parse(String commandChars) {
         return commandChars.chars()
                 .mapToObj(cmdChar -> commands.stream()

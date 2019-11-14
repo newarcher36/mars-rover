@@ -1,7 +1,7 @@
 package com.nasa.marsrover.usecase;
 
 import com.nasa.marsrover.domain.model.planet.PlanetMap;
-import com.nasa.marsrover.domain.service.MarsMapService;
+import com.nasa.marsrover.domain.service.MarsRoverService;
 import com.nasa.marsrover.domain.values.Coordinates;
 import com.nasa.marsrover.domain.values.Direction;
 import com.nasa.marsrover.domain.values.MapSettings;
@@ -23,7 +23,7 @@ class CreateMapShould {
     private CreateMap createMap;
 
     @Mock
-    private MarsMapService marsMapService;
+    private MarsRoverService marsMapService;
 
     @BeforeEach
     void init() {

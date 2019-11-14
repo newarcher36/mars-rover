@@ -10,6 +10,10 @@ public class RoverCoordinates extends Coordinates {
         this.direction = direction;
     }
 
+    public Direction getStartDirection() {
+        return direction;
+    }
+
     @Override
     public String toString() {
         return String.format("Mars Rover moved to coordinates x:%d y:%d and is facing to the %s",x,y,direction);
